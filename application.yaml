@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: task-application  
+  namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: us-docker.pkg.dev/argocd-test-project/docker-image-repo/nodejs-app:~v0.0.1     #Write repository name
+    argocd-image-updater.argoproj.io/myalias.pull-secret: pullsecret:argocd/argocd-gcp-secret  # You can remove this annotation if you have already configured the gcr secret and are using the same secret to retrieve all GCR images in your deployments.
+    argocd-image-updater.argoproj.io/myalias.update-strategy: latest #There are several ways to update the image, but I'm using digest.
+    argocd-image-updater.argoproj.io/write-back-method: git  # We don't need the secret as mentioned in argocd doc because we already set it up via argocd console if you're using the same git repo.
+    argocd-image-updater.argoproj.io/git-branch: main 
+    argocd-image-updater.argoproj.io/myalias.force-update: "true"
+
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  
+  labels:
+    name: test-application
+
+spec:
+  project: default
+
+  source:
+    repoURL: https://source.developers.google.com/p/argocd-test-project/r/application-repo 
+    targetRevision: HEAD  
+    path: dev/app-helm # path of the kubernetes application code means where you stored deployment.yaml, service.yaml etc
+
+    helm:
+      parameters:
+        - name: "imageId.image"
+          value: "us-docker.pkg.dev/argocd-test-project/docker-image-repo/nodejs-app:~0.1"
+  destination:
+    server: https://kubernetes.default.svc  # if you want to deploy application in the same cluster where argocd server is running if thats diffrent then use cluster IP address.
+    namespace: test-app
+  
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      selfHeal: true
+      prune: true
+        #sourceSecretName: argocd-gcp-creds

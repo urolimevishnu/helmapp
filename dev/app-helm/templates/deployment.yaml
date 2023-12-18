@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: test-app
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-node-app
+  namespace: test-app
+    #annotations:
+    #argocd-image-updater.argoproj.io/image-list: |
+    # us-docker.pkg.dev/argocd-test-project/docker-image-repo/nodejs-app:.*
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: simple-node-app
+  template:
+    metadata:
+      labels:
+        app: simple-node-app
+    spec:
+      containers:
+      - name: simple-node-app
+        image: {{ .Values.imageId.image }} #us-docker.pkg.dev/argocd-test-project/docker-image-repo/nodejs-app:v0.2.1
+        ports:
+        - containerPort: 3000
