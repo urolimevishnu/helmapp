@@ -7,5 +7,5 @@ helm:
     value: us-docker.pkg.dev/test-argo-poc/application/app
     forcestring: true
   - name: image.tag
-    value: ccb1181d-2cd1-4cdb-be00-4334894584a4
+    value: a6c84bac-8e23-4591-8061-27e164d6afa9
     forcestring: true
