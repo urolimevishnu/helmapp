@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: helm-app
+  name: helm-app-git
   namespace: argocd
   annotations:
     argocd-image-updater.argoproj.io/image-list: myalias=us-docker.pkg.dev/test-argo-poc/application/app   #Write repository name
     argocd-image-updater.argoproj.io/my-image.pull-secret: pullsecret:argocd/github-repo  # You can remove this annotation if you have already configured the gcr secret and are using the same secret to retrieve all GCR images in your deployments.
     argocd-image-updater.argoproj.io/myalias.update-strategy: latest #There are several ways to update the image, but I'm using digest.
-    argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/github-repo  # We don't need the secret as mentioned in argocd doc because we already set it up via argocd console if you're using the same git repo.
-    argocd-image-updater.argoproj.io/git-branch: master
+    argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-original  # We don't need the secret as mentioned in argocd doc because we already set it up via argocd console if you're using the same git repo.
+    argocd-image-updater.argoproj.io/git-branch: main
     argocd-image-updater.argoproj.io/myalias.force-update: "true"
 
   finalizers:
@@ -21,7 +21,7 @@ spec:
   project: default
 
   source:
-    repoURL: https://source.developers.google.com/p/test-argo-poc/r/Manifest-helm
+    repoURL: git@github.com:urolimevishnu/helmapp.git
     targetRevision: HEAD
     path: dev/app-helm # path of the kubernetes application code means where you stored deployment.yaml, service.yaml etc
 
