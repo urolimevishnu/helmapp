@@ -26,6 +26,6 @@ spec:
       containers:
       - name: simple-node-app
         image: {{ .Values.imageId.image }} #us-docker.pkg.dev/argocd-test-project/docker-image-repo/nodejs-app:v0.2.1
-          #tag: {{ .Values.imageID.tag }}
+          #tag:{{ .Values.imageID.tag }}
         ports:
         - containerPort: 3000
