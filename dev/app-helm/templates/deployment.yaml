@@ -10,9 +10,9 @@ kind: Deployment
 metadata:
   name: simple-node-app
   namespace: test-app
-    #annotations:
-    #argocd-image-updater.argoproj.io/image-list: |
-    # us-docker.pkg.dev/argocd-test-project/docker-image-repo/nodejs-app:.*
+  #annotations:
+  #  argocd-image-updater.argoproj.io/image-list: |
+  #    us-docker.pkg.dev/argocd-test-project/docker-image-repo/nodejs-app:.*
 spec:
   replicas: 2
   selector:
@@ -25,7 +25,6 @@ spec:
     spec:
       containers:
       - name: simple-node-app
-        image: {{ .Values.imageId.image }} #us-docker.pkg.dev/argocd-test-project/docker-image-repo/nodejs-app:v0.2.1
-          #tag:{{ .Values.imageID.tag }}
+        image: "{{ .Values.image.name }}:{{ .Values.image.tag }}" # Example: us-docker.pkg.dev/argocd-test-project/docker-image-repo/nodejs-app:v0.2.1
         ports:
         - containerPort: 3000
