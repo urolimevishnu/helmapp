@@ -1,0 +1,8 @@
+helm:
+  parameters:
+  - name: image.name
+    value: gcr.io/test-argo-poc/app
+    forcestring: true
+  - name: image.tag
+    value: 344bd0b5-199b-43af-a29f-c59a8fa83ec9
+    forcestring: true
