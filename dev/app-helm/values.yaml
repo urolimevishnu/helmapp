@@ -1,3 +1,3 @@
 image:
-  name: "us-docker.pkg.dev/test-argo-poc/application/app"
-  tag: "d9e46aae-54ac-4eca-b73d-93dfa3b694ca"
+  name: "gcr.io/test-argo-poc/app" #"us-docker.pkg.dev/test-argo-poc/application/app"
+  tag: "65814327-2635-4fc1-8baf-513ebabeff7c" #"d9e46aae-54ac-4eca-b73d-93dfa3b694ca"
