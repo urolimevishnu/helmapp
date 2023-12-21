@@ -1,8 +1,0 @@
-helm:
-  parameters:
-  - name: image.name
-    value: us-docker.pkg.dev/test-argo-poc/application/app
-    forcestring: true
-  - name: image.tag
-    value: dbccc106-3c50-4e7f-b121-b282c6f851ee
-    forcestring: true
