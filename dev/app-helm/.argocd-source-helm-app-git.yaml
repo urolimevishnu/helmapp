@@ -4,5 +4,5 @@ helm:
     value: gcr.io/test-argo-poc/app
     forcestring: true
   - name: image.tag
-    value: c4fbc334-cfe1-4bf3-9c1b-7e3d8afca4ae
+    value: ca83a433-4743-495e-a421-e735b8003847
     forcestring: true
